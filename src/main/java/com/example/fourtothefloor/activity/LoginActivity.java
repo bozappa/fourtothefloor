@@ -25,8 +25,11 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.security.ProviderInstaller;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -35,8 +38,14 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.auth.UserInfo;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
+
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
+
+import javax.net.ssl.SSLContext;
 
 import butterknife.ButterKnife;
 import butterknife.BindView;
@@ -151,12 +160,19 @@ public class LoginActivity extends AppCompatActivity {
                                                     @Override
                                                     public void onResponse(Call<Integer> call, Response<Integer> response) {
                                                         progressDialog.dismiss();
-                                                        Toast.makeText(LoginActivity.this,
-                                                                "Login Successful",
-                                                                Toast.LENGTH_SHORT).show();
+//                                                        if(response.body()==1){
+//                                                        Toast.makeText(LoginActivity.this,
+//                                                                "Login Successful",
+//                                                                Toast.LENGTH_SHORT).show();
                                                         startActivity(new Intent(LoginActivity.this, MainActivity.class));
                                                         finish();
                                                     }
+//                                                    else{
+//                                                            Toast.makeText(LoginActivity.this,
+//                                                                    "Something went wrong",
+//                                                                    Toast.LENGTH_SHORT).show();
+//                                                            FirebaseAuth.getInstance().signOut();
+//                                                        }
 
                                                     @Override
                                                     public void onFailure(Call<Integer> call, Throwable t) {
