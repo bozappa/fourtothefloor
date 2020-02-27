@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "994230739420",
+    "firebase_url": "https://fourtothefloor-67878.firebaseio.com",
+    "project_id": "fourtothefloor-67878",
+    "storage_bucket": "fourtothefloor-67878.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:994230739420:android:cac5886001773622146f19",
+        "android_client_info": {
+          "package_name": "com.example.fourtothefloor"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "994230739420-uq23mtvkemg4e9uk8qndpbcj8piuurfm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.fourtothefloor",
+            "certificate_hash": "25020f6dda3a95ca281349c61f062c0da7358a3d"
+          }
+        },
+        {
+          "client_id": "994230739420-u3a1vg8r5rgng2c3mi0o2ko4m4q1t04a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDznDcdGfYRFCDC_X39w6vO-TkYmIaSicA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "994230739420-u3a1vg8r5rgng2c3mi0o2ko4m4q1t04a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

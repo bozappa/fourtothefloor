@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">fourtothefloor</string>
+
+    <string name="ETEmail">Email</string>
+    <string name="ETPassword">Password</string>
+    <string name="login">Login</string>
+    <string name="createAC">No account? Create.</string>
+    <string name="ETname">Name</string>
+
+    <string name="appLogo">Logo</string>
+
+    <string name="TVLogin">Already a member? Login</string>
+    <string name="createButton">Create</string>
+
+</resources>
