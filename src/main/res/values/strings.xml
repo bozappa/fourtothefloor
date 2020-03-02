@@ -11,5 +11,11 @@
 
     <string name="TVLogin">Already a member? Login</string>
     <string name="createButton">Create</string>
+    <string name="home">Home</string>
+    <string name="friends">Friends</string>
+    <string name="notification">Notification</string>
+    <string name="profile">Profile</string>
+    <string name="no_notifications">No notifications</string>
+    <string name="friend_request">Friend Request</string>
 
 </resources>
