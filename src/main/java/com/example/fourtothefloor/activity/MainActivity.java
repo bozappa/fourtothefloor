@@ -1,7 +1,15 @@
 package com.example.fourtothefloor.activity;
 
+/*
+References:
+https://github.com/sourcey/materiallogindemo/tree/master/app/src/main/res
+https://www.udemy.com/course/social-networking-android-app-development-from-scratch/learn/lecture/12911404?start=75#content
+ */
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -75,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
 
                     case R.id.profile_fragment:
-
+                        startActivity(new Intent(MainActivity.this, ProfileActivity.class));
                         break;
 
                     case R.id.profile_friends:
@@ -87,6 +95,13 @@ public class MainActivity extends AppCompatActivity {
                         break;
                 }
                 return true;
+            }
+        });
+
+        fab.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                startActivity(new Intent(MainActivity.this, UploadActivity.class));
             }
         });
 

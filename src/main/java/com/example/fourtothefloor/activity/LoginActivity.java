@@ -1,9 +1,6 @@
 package com.example.fourtothefloor.activity;
 
-/*
-References:
-https://github.com/sourcey/materiallogindemo/tree/master/app/src/main/res
- */
+
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
