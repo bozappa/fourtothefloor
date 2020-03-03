@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:layout_marginTop="5dp"
+        android:textStyle="bold"
+        android:textColor="#000"
+        android:textSize="15sp"
+        android:text="@string/friend_request" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/friend_reqst_rcy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="#DCDEE3" />
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:textStyle="bold"
+        android:textColor="#000"
+        android:textSize="15sp"
+        android:textAlignment="center"
+        android:text="@string/friends" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/friends_rcy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="#DCDEE3" />
+
+</LinearLayout>
