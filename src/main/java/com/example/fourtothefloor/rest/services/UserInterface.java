@@ -22,4 +22,7 @@ public interface UserInterface {
 
     @POST("poststatus")
     Call<Integer> uploadStatus(@Body MultipartBody requestBody);
+
+    @POST("uploadImage")
+    Call<Integer> uploadImage(@Body MultipartBody requestBody);
 }
