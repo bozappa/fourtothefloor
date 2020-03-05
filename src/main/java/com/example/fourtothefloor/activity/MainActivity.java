@@ -27,6 +27,7 @@ import com.example.fourtothefloor.fragment.NotificationFragment;
 import com.example.fourtothefloor.util.BottomNavigationViewHelper;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -83,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
 
                     case R.id.profile_fragment:
-                        startActivity(new Intent(MainActivity.this, ProfileActivity.class));
+                        startActivity(new Intent(MainActivity.this, ProfileActivity.class).putExtra("uid", FirebaseAuth.getInstance().getCurrentUser().getUid()));
                         break;
 
                     case R.id.profile_friends:

@@ -19,6 +19,7 @@
     <string name="friend_request">Friend Request</string>
     <string name="post">Post</string>
     <string name="add_image">Add Image</string>
+    <string name="edit_profile_btn">Edit Profile</string>
     <string-array name="privacy_level">
         <item>Friends</item>
         <item>Only Me</item>

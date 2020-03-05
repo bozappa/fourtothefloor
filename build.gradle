@@ -18,6 +18,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    packagingOptions {
+        exclude 'META-INF/rxjava.properties'
+    }
+
     // Butterknife requires Java 8.
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -60,4 +65,14 @@ dependencies {
 
     // circular imageview
     implementation 'de.hdodenhof:circleimageview:3.0.1'
+
+    // Picasso
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+
+    // Image Picker, Compressor and easy permission dependencies
+    implementation 'pub.devrel:easypermissions:1.2.0'
+    implementation 'com.github.esafirm.android-image-picker:imagepicker:2.2.0'
+    implementation 'com.github.esafirm.android-image-picker:rximagepicker:2.2.0'
+    implementation 'com.github.bumptech.glide:glide:4.9.0'
+    implementation 'id.zelory:compressor:2.1.0'
 }
