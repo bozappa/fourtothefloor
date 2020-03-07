@@ -23,6 +23,7 @@
     <string name="searchIV">search</string>
     <string name="usernameTV">Username</string>
     <string name="search">Search</string>
+    <string name="send_request_btn">Send Request</string>
     <string-array name="privacy_level">
         <item>Friends</item>
         <item>Only Me</item>

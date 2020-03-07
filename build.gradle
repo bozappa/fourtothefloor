@@ -11,6 +11,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -40,6 +41,8 @@ dependencies {
 
     implementation 'com.google.android.material:material:1.1.0'
     implementation 'androidx.cardview:cardview:1.0.0'
+
+    implementation 'com.android.support:multidex:1.0.3'
 
     // Butterknife dependencies
     implementation 'com.jakewharton:butterknife:10.2.1'
