@@ -31,6 +31,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -112,5 +113,10 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.framelayout, fragment);
         fragmentTransaction.commit();
+    }
+
+    @OnClick(R.id.search)
+    public void onViewClicked() {
+        startActivity(new Intent (MainActivity.this, SearchActivity.class));
     }
 }

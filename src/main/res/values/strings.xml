@@ -20,6 +20,9 @@
     <string name="post">Post</string>
     <string name="add_image">Add Image</string>
     <string name="edit_profile_btn">Edit Profile</string>
+    <string name="searchIV">search</string>
+    <string name="usernameTV">Username</string>
+    <string name="search">Search</string>
     <string-array name="privacy_level">
         <item>Friends</item>
         <item>Only Me</item>
