@@ -179,6 +179,51 @@ public class ProfileActivity extends AppCompatActivity implements DialogInterfac
                         }
                     });
                     builder.show();
+                } else if (current_state == 2) {
+                    profileOptionBtn.setText("Processing");
+                    CharSequence options[] = new CharSequence[]{"Cancel Friend Request"};
+                    AlertDialog.Builder builder = new AlertDialog.Builder(ProfileActivity.this);
+                    builder.setOnDismissListener(ProfileActivity.this);
+                    builder.setTitle("Choose Options");
+                    builder.setItems(options, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int position) {
+                            if (position == 0) {
+                                performAction(current_state);
+                            }
+                        }
+                    });
+                    builder.show();
+                } else if (current_state == 3) {
+                    profileOptionBtn.setText("Processing");
+                    CharSequence options[] = new CharSequence[]{"Accept Request"};
+                    AlertDialog.Builder builder = new AlertDialog.Builder(ProfileActivity.this);
+                    builder.setOnDismissListener(ProfileActivity.this);
+                    builder.setTitle("Choose Options");
+                    builder.setItems(options, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int position) {
+                            if (position == 0) {
+                                performAction(current_state);
+                            }
+                        }
+                    });
+                    builder.show();
+                } else if (current_state == 1) {
+                    profileOptionBtn.setText("Processing");
+                    CharSequence options[] = new CharSequence[]{"Unfriend"};
+                    AlertDialog.Builder builder = new AlertDialog.Builder(ProfileActivity.this);
+                    builder.setOnDismissListener(ProfileActivity.this);
+                    builder.setTitle("Choose Options");
+                    builder.setItems(options, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int position) {
+                            if (position == 0) {
+                                performAction(current_state);
+                            }
+                        }
+                    });
+                    builder.show();
                 }
             }
         });
@@ -197,6 +242,18 @@ public class ProfileActivity extends AppCompatActivity implements DialogInterfac
                         current_state = 2;
                         profileOptionBtn.setText("Request Sent");
                         Toast.makeText(ProfileActivity.this, "Request Sent Successfully", Toast.LENGTH_SHORT).show();
+                    } else if (i == 2) {
+                       current_state = 4;
+                       profileOptionBtn.setText("Send Request");
+                       Toast.makeText(ProfileActivity.this, "Request cancelled", Toast.LENGTH_SHORT).show();
+                    } else if (i == 3) {
+                        current_state = 1;
+                        profileOptionBtn.setText("Friends");
+                        Toast.makeText(ProfileActivity.this, "You are friends with this user", Toast.LENGTH_SHORT).show();
+                    } else if (i == 1) {
+                        current_state = 4;
+                        profileOptionBtn.setText("Send Request");
+                        Toast.makeText(ProfileActivity.this, "You are no longer friends with this user", Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     profileOptionBtn.setEnabled(false);
