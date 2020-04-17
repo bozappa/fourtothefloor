@@ -528,7 +528,7 @@ public class ProfileActivity extends AppCompatActivity implements DialogInterfac
 
     }
 
-    public class PerformAction {
+    public static class PerformAction {
         String operationType, userId, profileId;
 
         public PerformAction(String operationType, String userId, String profileId) {

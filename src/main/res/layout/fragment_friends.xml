@@ -6,6 +6,7 @@
     android:orientation="vertical">
 
     <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/request_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="center"
@@ -24,6 +25,7 @@
 
 
     <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/friend_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
