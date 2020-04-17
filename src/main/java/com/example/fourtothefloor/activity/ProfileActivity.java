@@ -191,6 +191,7 @@ public class ProfileActivity extends AppCompatActivity implements DialogInterfac
         call.enqueue(new Callback<Integer>() {
             @Override
             public void onResponse(Call<Integer> call, Response<Integer> response) {
+                profileOptionBtn.setEnabled(true);
                 if(response.body() == 1){
                     if(i == 4){
                         current_state = 2;
@@ -380,7 +381,7 @@ public class ProfileActivity extends AppCompatActivity implements DialogInterfac
 
     @Override
     public void onDismiss(DialogInterface dialog) {
-
+        profileOptionBtn.setEnabled(true);
     }
 
     @Override
