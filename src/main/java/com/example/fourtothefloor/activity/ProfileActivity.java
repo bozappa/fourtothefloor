@@ -102,7 +102,7 @@ public class ProfileActivity extends AppCompatActivity implements DialogInterfac
 
         ButterKnife.bind(this);
 
-        profileViewPagerAdapter = new ProfileViewPagerAdapter(getSupportFragmentManager(), 1);
+
 
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.arrow_back_white);
@@ -113,8 +113,6 @@ public class ProfileActivity extends AppCompatActivity implements DialogInterfac
                 startActivity(new Intent(ProfileActivity.this, MainActivity.class));
             }
         });
-
-        ViewPagerProfile.setAdapter(profileViewPagerAdapter);
 
         if (FirebaseAuth.getInstance().getCurrentUser().getUid().equalsIgnoreCase(uid)) {
             // when uid matches then own profile is loaded
@@ -313,9 +311,15 @@ public class ProfileActivity extends AppCompatActivity implements DialogInterfac
     }
 
     private void showUserData(User user) {
+
+
+        profileViewPagerAdapter = new ProfileViewPagerAdapter(getSupportFragmentManager(), 1, user.getUid(),
+                user.getState());
+        ViewPagerProfile.setAdapter(profileViewPagerAdapter);
         profileUrl = user.getProfileUrl();
         coverUrl = user.getCoverUrl();
         collapsingToolbar.setTitle(user.getName());
+
         if (!profileUrl.isEmpty()) {
             Picasso.with(ProfileActivity.this).load(profileUrl).into(profileImage, new com.squareup.picasso.Callback() {
                 @Override

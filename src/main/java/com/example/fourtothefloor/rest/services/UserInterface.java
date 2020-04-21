@@ -3,6 +3,7 @@ package com.example.fourtothefloor.rest.services;
 import com.example.fourtothefloor.activity.LoginActivity;
 import com.example.fourtothefloor.activity.ProfileActivity;
 import com.example.fourtothefloor.model.FriendsModel;
+import com.example.fourtothefloor.model.PostModel;
 import com.example.fourtothefloor.model.User;
 
 import java.util.List;
@@ -37,6 +38,9 @@ public interface UserInterface {
 
     @GET("loadfriends")
     Call<FriendsModel> loadFriendsData(@QueryMap Map<String, String> params);
+
+    @GET("profiletimeline")
+    Call<List<PostModel>> getProfilePosts(@QueryMap Map<String, String> params);
 
     @POST("performaction")
     Call<Integer> performAction(@Body ProfileActivity.PerformAction performAction);

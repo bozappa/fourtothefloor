@@ -14,7 +14,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.fourtothefloor.R;
 import com.example.fourtothefloor.model.PostModel;
+import com.example.fourtothefloor.rest.ApiClient;
+import com.example.fourtothefloor.util.AgoDateParse;
+import com.squareup.picasso.NetworkPolicy;
+import com.squareup.picasso.Picasso;
 
+import java.text.ParseException;
 import java.util.List;
 
 import butterknife.BindView;
@@ -39,7 +44,60 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        final PostModel postModel = postModels.get(position);
+        if (postModel.getPost() != null && postModel.getPost().length() > 1) {
+            holder.post.setText(postModel.getPost());
+        } else {
+            holder.post.setVisibility(View.GONE);
+        }
+        // set name of user in post
+        holder.peopleName.setText(postModel.getName());
+        // set privacy level of post
+        if (postModel.getPrivacy().equals("0")) {
+            holder.privacyIcon.setImageResource(R.drawable.icon_friends); // get privacy levels from UploadActivity
+        } else if (postModel.getPrivacy().equals("1")) {
+            holder.privacyIcon.setImageResource(R.drawable.icon_onlyme);
+        } else {
+            holder.privacyIcon.setImageResource(R.drawable.icon_public);
+        }
 
+        // post
+        if (!postModel.getStatusImage().isEmpty()) {
+            Picasso.with(context).load(ApiClient.BASE_URL_1+postModel.getStatusImage()).networkPolicy(NetworkPolicy.OFFLINE).placeholder(R.drawable.default_image_placeholder).into(holder.statusImage, new com.squareup.picasso.Callback() {
+                @Override
+                public void onSuccess() {
+
+                }
+
+                @Override
+                public void onError() {
+                    Picasso.with(context).load(ApiClient.BASE_URL_1+postModel.getStatusImage()).placeholder(R.drawable.default_image_placeholder).into(holder.statusImage);
+                }
+            });
+        } else {
+            holder.statusImage.setVisibility(View.GONE);
+        }
+        // date
+        try {
+            holder.date.setText(AgoDateParse.getTimeAgo(AgoDateParse.getTimeInMillsecond(postModel.getStatusTime())));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        // user
+        if(!postModel.getProfileUrl().isEmpty()){
+            Picasso.with(context).load(postModel.getProfileUrl()).networkPolicy(NetworkPolicy.OFFLINE).placeholder(R.drawable.default_image_placeholder).into(holder.peopleImage, new com.squareup.picasso.Callback() {
+                @Override
+                public void onSuccess() {
+
+                }
+
+                @Override
+                public void onError() {
+                    Picasso.with(context).load(postModel.getProfileUrl()).placeholder(R.drawable.default_image_placeholder).into(holder.peopleImage);
+                }
+            });
+        }
     }
 
     @Override
