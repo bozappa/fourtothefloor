@@ -80,7 +80,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 }
             });
         } else {
-            holder.statusImage.setVisibility(View.GONE);
+            holder.statusImage.setImageDrawable(null);
         }
         // date
         try {

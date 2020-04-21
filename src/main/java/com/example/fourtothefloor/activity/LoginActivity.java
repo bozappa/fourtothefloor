@@ -151,7 +151,7 @@ public class LoginActivity extends AppCompatActivity {
                                                 final String coverUrl = "";
                                                 UserInterface userInterface = ApiClient.getApiClient()
                                                         .create(UserInterface.class);
-                                                Call<Integer> call = userInterface.signin(new UserInfo(uid,
+                                                Call<Integer> call = userInterface.signin(new LoginActivity.UserInfo(uid,
                                                         name,email,profileUrl,coverUrl,userToken));
                                                 call.enqueue(new Callback<Integer>() {
                                                     @Override

@@ -53,8 +53,8 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.1'
 
     // Parcels
-    implementation 'org.parceler:parceler-api:1.1.9'
-    annotationProcessor 'org.parceler:parceler:1.1.9'
+    implementation 'org.parceler:parceler-api:1.1.12'
+    annotationProcessor 'org.parceler:parceler:1.1.12'
 
     // Firebase dependencies
     implementation 'com.google.firebase:firebase-analytics:17.3.0'

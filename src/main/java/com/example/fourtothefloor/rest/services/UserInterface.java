@@ -19,7 +19,7 @@ import retrofit2.http.QueryMap;
 public interface UserInterface {
 
     @POST("login")
-    Call<Integer> singin(@Body  LoginActivity.UserInfo userInfo);
+    Call<Integer> signin(@Body  LoginActivity.UserInfo userInfo);
 
     @GET("loadownprofile")
     Call<User> loadownProfile(@QueryMap Map<String, String> params);

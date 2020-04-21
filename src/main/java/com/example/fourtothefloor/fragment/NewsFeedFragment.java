@@ -41,7 +41,7 @@ public class NewsFeedFragment extends Fragment {
     ProgressBar newsfeedProgressBar;
     Unbinder unbinder;
 
-    int limit = 3;
+    int limit = 5;
     int offset = 0;
     boolean isFromStart = true;
     PostAdapter postAdapter;

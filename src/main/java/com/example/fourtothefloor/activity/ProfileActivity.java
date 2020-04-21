@@ -371,7 +371,7 @@ public class ProfileActivity extends AppCompatActivity implements DialogInterfac
         UserInterface userInterface = ApiClient.getApiClient().create(UserInterface.class);
         Map<String, String> params = new HashMap<>();
         params.put("userId", FirebaseAuth.getInstance().getCurrentUser().getUid());
-        Call<User> call = userInterface.loadownprofile(params);
+        Call<User> call = userInterface.loadownProfile(params);
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
