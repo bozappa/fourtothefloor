@@ -18,11 +18,11 @@ import retrofit2.http.QueryMap;
 
 public interface UserInterface {
 
-    @POST("app/login")
-    public Call<Integer> signin(@Body LoginActivity.UserInfo userInfo);
+    @POST("login")
+    Call<Integer> singin(@Body  LoginActivity.UserInfo userInfo);
 
     @GET("loadownprofile")
-    Call<User> loadownprofile(@QueryMap Map<String, String> params);
+    Call<User> loadownProfile(@QueryMap Map<String, String> params);
 
     @GET("loadotherprofile")
     Call<User> loadOtherProfile(@QueryMap Map<String, String> params);
@@ -36,11 +36,14 @@ public interface UserInterface {
     @GET("search")
     Call<List<User>> search(@QueryMap Map<String, String> params);
 
-    @GET("loadfriends")
-    Call<FriendsModel> loadFriendsData(@QueryMap Map<String, String> params);
-
     @GET("profiletimeline")
     Call<List<PostModel>> getProfilePosts(@QueryMap Map<String, String> params);
+
+    @GET("gettimelinepost")
+    Call<List<PostModel>> getTimeline(@QueryMap Map<String, String> params);
+
+    @GET("loadfriends")
+    Call<FriendsModel> loadFriendsData(@QueryMap Map<String, String> params);
 
     @POST("performaction")
     Call<Integer> performAction(@Body ProfileActivity.PerformAction performAction);

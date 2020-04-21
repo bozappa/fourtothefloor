@@ -31,6 +31,14 @@
     <string name="posts">Posts</string>
     <string name="_0_likes">0 Likes</string>
     <string name="_0_comments">0 Comments</string>
+    <string name="user_name">User Name</string>
+    <string name="status">Status</string>
+    <string name="_0_like">0 Like</string>
+    <string name="_0_comment">0 Comment</string>
+    <string name="comment_send">comment_send</string>
+    <string name="like_img">like_img</string>
+    <string name="post_user_img">post_user_img</string>
+    <string name="comment_iv">comment_IV</string>
     <string-array name="privacy_level">
         <item>Friends</item>
         <item>Only Me</item>

@@ -41,7 +41,7 @@ public class ProfileFragment extends Fragment {
     ProgressBar newsfeedProgressBar;
     Unbinder unbinder;
 
-    int limit = 10;
+    int limit = 2;
     int offset = 0;
     boolean isFromStart = true;
     PostAdapter postAdapter;
@@ -63,13 +63,30 @@ public class ProfileFragment extends Fragment {
 
         unbinder = ButterKnife.bind(this, view);
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
+        final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         newsfeed.setLayoutManager(linearLayoutManager);
         postAdapter = new PostAdapter(context, postModels);
-        uid = getArguments().getString("uid");
-        current_state = getArguments().getString("current_state");
-        // set view to recycler view, recyclerview is newsfeed
+        uid = getArguments().getString("uid", "0");
+        current_state = getArguments().getString("current_state", "0");
         newsfeed.setAdapter(postAdapter);
+
+        newsfeed.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+
+                int visibleItemCount = linearLayoutManager.getChildCount();
+                int totalItemCount = linearLayoutManager.getItemCount();
+                int passVisibleItems = linearLayoutManager.findFirstCompletelyVisibleItemPosition();
+
+                if (passVisibleItems + visibleItemCount >= (totalItemCount)) {
+
+                    isFromStart = false;
+                    newsfeedProgressBar.setVisibility(View.VISIBLE);
+                    offset = offset + limit;
+                    loadProfilePost();
+                }
+            }
+        });
 
         return view;
     }
@@ -83,15 +100,12 @@ public class ProfileFragment extends Fragment {
     }
 
     private void loadProfilePost() {
-        // retrofit callback - add to UI
         UserInterface userInterface = ApiClient.getApiClient().create(UserInterface.class);
         Map<String, String> params = new HashMap<String, String>();
 
-        // only 2 variables listed above so need current user and current state from backend code
-        // can get from viewpager
         params.put("uid", uid);
-        params.put("limit", limit+"");
-        params.put("offset", offset+"");
+        params.put("limit", limit + "");
+        params.put("offset", offset + "");
         params.put("current_state", current_state);
 
         Call<List<PostModel>> postModelCall = userInterface.getProfilePosts(params);
@@ -99,12 +113,12 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onResponse(Call<List<PostModel>> call, Response<List<PostModel>> response) {
                 newsfeedProgressBar.setVisibility(View.GONE);
-                if(response.body() != null) {
+                if (response.body() != null) {
                     postModels.addAll(response.body());
                     if (isFromStart) {
                         newsfeed.setAdapter(postAdapter);
                     } else {
-                        postAdapter.notifyDataSetChanged();
+                        postAdapter.notifyItemRangeInserted(postModels.size(), response.body().size());
                     }
                 }
             }
@@ -115,7 +129,13 @@ public class ProfileFragment extends Fragment {
                 Toast.makeText(context, "Something went wrong", Toast.LENGTH_SHORT).show();
             }
         });
+    }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        postModels.clear();
+        postAdapter.notifyDataSetChanged();
     }
 
     @Override

@@ -19,6 +19,7 @@ import com.example.fourtothefloor.adapter.PostAdapter;
 import com.example.fourtothefloor.model.PostModel;
 import com.example.fourtothefloor.rest.ApiClient;
 import com.example.fourtothefloor.rest.services.UserInterface;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,7 +34,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class NewsFeedFragment extends Fragment {
-
     Context context;
     @BindView(R.id.newsfeed)
     RecyclerView newsfeed;
@@ -46,8 +46,7 @@ public class NewsFeedFragment extends Fragment {
     boolean isFromStart = true;
     PostAdapter postAdapter;
     List<PostModel> postModels = new ArrayList<>();
-    String uid = "0";
-    String current_state = "0";
+
 
     @Override
     public void onAttach(Context context) {
@@ -63,13 +62,28 @@ public class NewsFeedFragment extends Fragment {
 
         unbinder = ButterKnife.bind(this, view);
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
+        final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         newsfeed.setLayoutManager(linearLayoutManager);
         postAdapter = new PostAdapter(context, postModels);
-        uid = getArguments().getString("uid");
-        // set view to recycler view, recyclerview is newsfeed
-        newsfeed.setAdapter(postAdapter);
 
+        newsfeed.setAdapter(postAdapter);
+        newsfeed.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+
+                int visibileItemCount = linearLayoutManager.getChildCount();
+                int totalItemCount = linearLayoutManager.getItemCount();
+                int passVisibleItems = linearLayoutManager.findFirstCompletelyVisibleItemPosition();
+
+                if (passVisibleItems + visibileItemCount >= (totalItemCount)) {
+
+                    isFromStart = false;
+                    newsfeedProgressBar.setVisibility(View.VISIBLE);
+                    offset = offset + limit;
+                    loadTimeline();
+                }
+            }
+        });
         return view;
     }
 
@@ -78,32 +92,28 @@ public class NewsFeedFragment extends Fragment {
         super.onStart();
         isFromStart = true;
         offset = 0;
-        // loadProfilePost();
+        loadTimeline();
     }
 
-    private void loadProfilePost() {
-        // retrofit callback - add to UI
+    private void loadTimeline() {
         UserInterface userInterface = ApiClient.getApiClient().create(UserInterface.class);
         Map<String, String> params = new HashMap<String, String>();
 
-        // only 2 variables listed above so need current user and current state from backend code
-        // can get from viewpager
-        params.put("uid", uid);
-        params.put("limit", limit+"");
-        params.put("offset", offset+"");
-        params.put("current_state", current_state);
+        params.put("uid", FirebaseAuth.getInstance().getCurrentUser().getUid());
+        params.put("limit", limit + "");
+        params.put("offset", offset + "");
 
-        Call<List<PostModel>> postModelCall = userInterface.getProfilePosts(params);
+        Call<List<PostModel>> postModelCall = userInterface.getTimeline(params);
         postModelCall.enqueue(new Callback<List<PostModel>>() {
             @Override
             public void onResponse(Call<List<PostModel>> call, Response<List<PostModel>> response) {
                 newsfeedProgressBar.setVisibility(View.GONE);
-                if(response.body() != null) {
+                if (response.body() != null) {
                     postModels.addAll(response.body());
                     if (isFromStart) {
                         newsfeed.setAdapter(postAdapter);
                     } else {
-                        postAdapter.notifyDataSetChanged();
+                        postAdapter.notifyItemRangeInserted(postModels.size(), response.body().size());
                     }
                 }
             }
@@ -111,15 +121,21 @@ public class NewsFeedFragment extends Fragment {
             @Override
             public void onFailure(Call<List<PostModel>> call, Throwable t) {
                 newsfeedProgressBar.setVisibility(View.GONE);
-                Toast.makeText(context, "Something went wrong", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Something went wrong!", Toast.LENGTH_SHORT).show();
             }
         });
-
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        postModels.clear();
+        postAdapter.notifyDataSetChanged();
     }
 }

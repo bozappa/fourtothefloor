@@ -1,6 +1,8 @@
 package com.example.fourtothefloor.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,11 +15,14 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.fourtothefloor.R;
+import com.example.fourtothefloor.activity.FullPostActivity;
 import com.example.fourtothefloor.model.PostModel;
 import com.example.fourtothefloor.rest.ApiClient;
 import com.example.fourtothefloor.util.AgoDateParse;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
+
+import org.parceler.Parcels;
 
 import java.text.ParseException;
 import java.util.List;
@@ -98,6 +103,13 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 }
             });
         }
+        holder.itemView.setOnClickListener(view -> {
+            Intent intent = new Intent(context, FullPostActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putParcelable("postModel", Parcels.wrap(postModel));
+            intent.putExtra("postBundle", bundle);
+            context.startActivity(intent);
+        });
     }
 
     @Override
