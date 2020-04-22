@@ -6,6 +6,7 @@ import com.example.fourtothefloor.adapter.PostAdapter;
 import com.example.fourtothefloor.fragment.bottomsheets.CommentBottomSheet;
 import com.example.fourtothefloor.model.CommentModel;
 import com.example.fourtothefloor.model.FriendsModel;
+import com.example.fourtothefloor.model.NotificationModel;
 import com.example.fourtothefloor.model.PostModel;
 import com.example.fourtothefloor.model.User;
 
@@ -62,4 +63,10 @@ public interface UserInterface {
 
     @GET("retrievelowlevelcomment")
     Call<List<CommentModel.Comment>> retrieveLowLevelComment(@QueryMap Map<String, String> params);
+
+    @GET("getnotification")
+    Call<List<NotificationModel>> getNotification(@QueryMap Map<String, String> params);
+
+    @GET("details")
+    Call<PostModel> getPostDetails(@QueryMap Map<String, String> params);
 }

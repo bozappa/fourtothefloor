@@ -29,6 +29,8 @@ import com.squareup.picasso.Picasso;
 import org.parceler.Parcels;
 
 import java.text.ParseException;
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -83,12 +85,16 @@ public class FullPostActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_full_post);
         ButterKnife.bind(this);
-        postModel = Parcels.unwrap(getIntent().getBundleExtra("postBundle").getParcelable("postModel"));
-        if(postModel==null){
-            Toast.makeText(FullPostActivity.this,"Something went wrong !",Toast.LENGTH_SHORT).show();
-            onBackPressed();
-            finish();
+        boolean isLoadFromNetwrok = getIntent().getBundleExtra("postBundle").getBoolean("isLoadFromNetwork",false);
+        String postId = getIntent().getBundleExtra("postBundle").getString("postId","0");
+        if(isLoadFromNetwrok){
+            getPostDataDetails(postId);
+        }else{
+            postModel = Parcels.unwrap(getIntent().getBundleExtra("postBundle").getParcelable("postModel"));
+            setData(postModel);
         }
+
+
 
         // Setting the tool with back button
         setSupportActionBar(toolbar);
@@ -100,6 +106,65 @@ public class FullPostActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
+
+
+
+    }
+
+    private void getPostDataDetails(String postId) {
+        UserInterface userInterface = ApiClient.getApiClient().create(UserInterface.class);
+        Map<String,String> params = new HashMap<>();
+        params.put("uid",FirebaseAuth.getInstance().getCurrentUser().getUid());
+        params.put("postId",postId);
+        Call<PostModel> call = userInterface.getPostDetails(params);
+        call.enqueue(new Callback<PostModel>() {
+            @Override
+            public void onResponse(Call<PostModel> call, Response<PostModel> response) {
+                setData(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<PostModel> call, Throwable t) {
+                Toast.makeText(FullPostActivity.this,"Something went wrong !",Toast.LENGTH_SHORT).show();
+                FullPostActivity.super.onBackPressed();
+            }
+        });
+    }
+
+    private void operationLike( PostModel postModel) {
+        likeImg.setImageResource(R.drawable.icon_like_selected);
+        int count = Integer.parseInt(postModel.getLikeCount());
+        count++;
+        if (count == 0 || count == 1) {
+            likeTxt.setText(count + " Like");
+        } else {
+            likeTxt.setText(count + " Likes");
+        }
+
+        postModel.setLikeCount(count + "");
+        postModel.setLiked(true);
+    }
+
+    private void operationUnlike( PostModel postModel) {
+
+
+        likeImg.setImageResource(R.drawable.icon_like);
+        int count = Integer.parseInt(postModel.getLikeCount());
+        count--;
+
+        if (count == 0 || count == 1) {
+            likeTxt.setText(count + " Like");
+        } else {
+            likeTxt.setText(count + " Likes");
+        }
+        postModel.setLikeCount(count + "");
+        postModel.setLiked(false);
+
+
+    }
+    private void setData(final PostModel postModel) {
+
+
         if(postModel.getCommentCount().equals("0") || postModel.getCommentCount().equals("1")){
             commentTxt.setText(postModel.getCommentCount()+ "Comment");
         }else{
@@ -183,41 +248,7 @@ public class FullPostActivity extends AppCompatActivity {
             }
         });
 
-        setData(postModel);
-    }
 
-    private void operationLike( PostModel postModel) {
-        likeImg.setImageResource(R.drawable.icon_like_selected);
-        int count = Integer.parseInt(postModel.getLikeCount());
-        count++;
-        if (count == 0 || count == 1) {
-            likeTxt.setText(count + " Like");
-        } else {
-            likeTxt.setText(count + " Likes");
-        }
-
-        postModel.setLikeCount(count + "");
-        postModel.setLiked(true);
-    }
-
-    private void operationUnlike( PostModel postModel) {
-
-
-        likeImg.setImageResource(R.drawable.icon_like);
-        int count = Integer.parseInt(postModel.getLikeCount());
-        count--;
-
-        if (count == 0 || count == 1) {
-            likeTxt.setText(count + " Like");
-        } else {
-            likeTxt.setText(count + " Likes");
-        }
-        postModel.setLikeCount(count + "");
-        postModel.setLiked(false);
-
-
-    }
-    private void setData(final PostModel postModel) {
         postUserName.setText(postModel.getName());
         status.setText(postModel.getPost());
         if (!postModel.getProfileUrl().isEmpty()) {

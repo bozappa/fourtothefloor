@@ -47,6 +47,9 @@
     <string name="more_comments">more comments</string>
     <string name="sub_commented_person">Sub Commented Person</string>
     <string name="sub_comment_body">Sub Comment Body</string>
+    <string name="notification_title">Notification Title</string>
+    <string name="notification_body">Notification Body</string>
+    <string name="notification_date">Notification Date</string>
     <string-array name="privacy_level">
         <item>Friends</item>
         <item>Only Me</item>
