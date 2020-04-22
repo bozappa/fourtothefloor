@@ -3,6 +3,8 @@ package com.example.fourtothefloor.rest.services;
 import com.example.fourtothefloor.activity.LoginActivity;
 import com.example.fourtothefloor.activity.ProfileActivity;
 import com.example.fourtothefloor.adapter.PostAdapter;
+import com.example.fourtothefloor.fragment.bottomsheets.CommentBottomSheet;
+import com.example.fourtothefloor.model.CommentModel;
 import com.example.fourtothefloor.model.FriendsModel;
 import com.example.fourtothefloor.model.PostModel;
 import com.example.fourtothefloor.model.User;
@@ -51,4 +53,13 @@ public interface UserInterface {
 
     @POST("likeunlike")
     Call<Integer> likeUnlike(@Body PostAdapter.AddLike addLike);
+
+    @POST("postcomment")
+    Call<CommentModel> postComment(@Body CommentBottomSheet.AddComment addComment);
+
+    @GET("retrievetopcomment")
+    Call<CommentModel> retrieveTopComments(@QueryMap Map<String, String> params);
+
+    @GET("retrievelowlevelcomment")
+    Call<List<CommentModel.Comment>> retrieveLowLevelComment(@QueryMap Map<String, String> params);
 }

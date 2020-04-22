@@ -39,6 +39,14 @@
     <string name="like_img">like_img</string>
     <string name="post_user_img">post_user_img</string>
     <string name="comment_iv">comment_IV</string>
+    <string name="comments">Comments</string>
+    <string name="commented_person">Commented Person</string>
+    <string name="this_is_a_comment">This is a comment</string>
+    <string name="just_now">just now</string>
+    <string name="reply">Reply</string>
+    <string name="more_comments">more comments</string>
+    <string name="sub_commented_person">Sub Commented Person</string>
+    <string name="sub_comment_body">Sub Comment Body</string>
     <string-array name="privacy_level">
         <item>Friends</item>
         <item>Only Me</item>

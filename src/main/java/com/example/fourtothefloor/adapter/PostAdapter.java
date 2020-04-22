@@ -13,14 +13,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.fourtothefloor.R;
 import com.example.fourtothefloor.activity.FullPostActivity;
+import com.example.fourtothefloor.fragment.bottomsheets.CommentBottomSheet;
 import com.example.fourtothefloor.model.PostModel;
 import com.example.fourtothefloor.rest.ApiClient;
 import com.example.fourtothefloor.rest.services.UserInterface;
 import com.example.fourtothefloor.util.AgoDateParse;
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
@@ -70,6 +73,13 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             holder.privacyIcon.setImageResource(R.drawable.icon_onlyme);
         } else {
             holder.privacyIcon.setImageResource(R.drawable.icon_public);
+        }
+
+        // comment count
+        if(postModel.getCommentCount().equals("0") || postModel.getCommentCount().equals("1")){
+            holder.commentTxt.setText(postModel.getCommentCount()+ "Comment");
+        }else{
+            holder.commentTxt.setText(postModel.getCommentCount()+ "Comments");
         }
 
         // postlikes
@@ -184,6 +194,18 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             bundle.putParcelable("postModel", Parcels.wrap(postModel));
             intent.putExtra("postBundle", bundle);
             context.startActivity(intent);
+        });
+
+        holder.commentSection.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BottomSheetDialogFragment bottomSheetDialogFragment = new CommentBottomSheet();
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("postModel", Parcels.wrap(postModel));
+                bottomSheetDialogFragment.setArguments(bundle);
+                FragmentActivity fragmentActivity = (FragmentActivity) context;
+                bottomSheetDialogFragment.show(fragmentActivity.getSupportFragmentManager(), "commentFragment");
+            }
         });
     }
 
