@@ -2,6 +2,7 @@ package com.example.fourtothefloor.rest.services;
 
 import com.example.fourtothefloor.activity.LoginActivity;
 import com.example.fourtothefloor.activity.ProfileActivity;
+import com.example.fourtothefloor.adapter.PostAdapter;
 import com.example.fourtothefloor.model.FriendsModel;
 import com.example.fourtothefloor.model.PostModel;
 import com.example.fourtothefloor.model.User;
@@ -47,4 +48,7 @@ public interface UserInterface {
 
     @POST("performaction")
     Call<Integer> performAction(@Body ProfileActivity.PerformAction performAction);
+
+    @POST("likeunlike")
+    Call<Integer> likeUnlike(@Body PostAdapter.AddLike addLike);
 }

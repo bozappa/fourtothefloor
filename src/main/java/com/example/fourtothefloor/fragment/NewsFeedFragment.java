@@ -121,7 +121,7 @@ public class NewsFeedFragment extends Fragment {
             @Override
             public void onFailure(Call<List<PostModel>> call, Throwable t) {
                 newsfeedProgressBar.setVisibility(View.GONE);
-                Toast.makeText(context, "Something went wrong!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Something went wrong", Toast.LENGTH_SHORT).show();
             }
         });
     }
